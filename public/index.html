@@ -62,11 +62,11 @@
         <h1>Все категории</h1>
         <ul class="list-group">
           <li v-for="category in categories" class="list-group-item">
-            <button class="btn btn-default btn-sm" @click="editCategory(category)" data-toggle="modal" data-target="#exampleModal">Редактировать</button>
+            <button class="btn btn-success btn-sm" @click="editCategory(category)" data-toggle="modal" data-target="#exampleModal">Редактировать</button>
             &nbsp;
             <button class="btn btn-danger btn-sm" @click="deleteCategory(category.id)">Удалить</button>
             &nbsp;&nbsp;
-            {{ category.name }} ({{ category.products_count }} продуктов)
+            {{ category.name }} &nbsp;&nbsp; <button class="btn btn-default btn-sm" @click="showCategory(category.id)"> ({{ category.products_count }} продуктов)</button>
           </li>
         </ul>
       </div>

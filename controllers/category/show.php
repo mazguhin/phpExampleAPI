@@ -28,4 +28,4 @@ foreach ($categories as $key => $category)
 }
 
 header('Content-Type: application/json');
-echo json_encode($categories);
+echo json_encode($categories[0]);

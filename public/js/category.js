@@ -23,6 +23,17 @@ new Vue({
         alert(response.body);
       });
     },
+    // показать продукты категории
+    showCategory(id) {
+      this.$http.get('/category/show?id='+id)
+      .then(response => {
+          msg = 'Список продуктов: \n';
+        response.body.products.forEach(value=>msg+=value.name+'\n');
+        alert(msg);
+      }, response => {
+        alert(response.body);
+      });
+    },
     // добавить новую категорию
     addCategory () {
       if (this.category.name!='' && this.category.is_enabled!='' && this.category.parent!='') {
