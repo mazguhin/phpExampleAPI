@@ -2,6 +2,17 @@
 
 $data = Request::dataFromGet();
 
+$countProduct = $app['database']->count('shop_product', [
+  'id' => $data->id
+]);
+
+if ($countProduct==0) {
+  header("HTTP/1.1 404 Error");
+  header('Content-Type: application/json');
+  echo json_encode(['result' => 'Продукт не существует']);
+  return;
+}
+
 // получаем категории продукта
 $categories = $app['database']->where('shop_product_category', [
   'product_id' => "$data->id"
@@ -18,5 +29,6 @@ $app['database']->delete('shop_product', [
   'id' => $data->id,
 ]);
 
-echo 'Продукт успешно удален';
+header('Content-Type: application/json');
+echo json_encode(['result' => 'Продукт успешно удален']);
 return;

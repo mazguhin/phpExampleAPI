@@ -20,7 +20,8 @@ new Vue({
       this.$http.get('/category').then(response => {
         this.categories = response.body;
       }, response => {
-        alert(response.body);
+        alert(response.body.result);
+        this.getCategories();
       });
     },
     // показать продукты категории
@@ -31,7 +32,8 @@ new Vue({
         response.body.products.forEach(value=>msg+=value.name+'\n');
         alert(msg);
       }, response => {
-        alert(response.body);
+        alert(response.body.result);
+        this.getCategories();
       });
     },
     // добавить новую категорию
@@ -41,7 +43,8 @@ new Vue({
         .then(response => {
           this.getCategories();
         }, response => {
-          alert(response.body);
+          alert(response.body.result);
+          this.getCategories();
         });
       } else {
         alert('Заполните все поля');
@@ -65,7 +68,8 @@ new Vue({
           this.checkCategory.parent = '';
           this.getCategories();
         }, response => {
-          alert(response.body);
+          alert(response.body.result);
+          this.getCategories();
         });
       } else {
         alert('Заполните все поля');
@@ -81,7 +85,8 @@ new Vue({
         this.checkCategory.parent = '';
         this.getCategories();
       }, response => {
-        alert(response.body);
+        alert(response.body.result);
+        this.getCategories();
       });
     },
   },

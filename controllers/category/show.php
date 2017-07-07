@@ -2,30 +2,30 @@
 
 $data = Request::dataFromGet();
 
-$categories = $app['database']->show('shop_category', $data->id);
+$category = $app['database']->show('shop_category', $data->id);
 
-foreach ($categories as $key => $category)
-{
-    // получаем данные из доп. таблицы
-    $products = $app['database']->where('shop_product_category', [
-      'category_id' => $category->id
-    ]);
+$category->products = [];
 
-    $category->products = [];
-    $category->products_count = count($products);
+Helper::getProducts($category, $app, $category->products);
 
-    // перебираем полученные записи из доп. таблицы
-    foreach ($products as $product)
-    {
-        // получаем запись из таблицы продуктов
-        $result = $app['database']->where('shop_product', [
-          'id' => $product->product_id
-        ])[0];
+// оставляем от элементов только id продукта
+$category->products = array_map (function ($value) {
+  return $value->product_id;
+}, $category->products);
 
-        // закидываем найденную информацию в наш массив
-        array_push($category->products, $result);
-    };
-}
+// убираем дубликаты
+$category->products = array_unique($category->products);
+
+// ну тут уже без php'шного count никак не обойтись :)
+$category->products_count = count($category->products);
+
+// заменяем id продукта на полную информацию
+$category->products = array_map (function ($value) use ($app) {
+  // достаем продукт по его id
+  $result = $app['database']->show('shop_product', $value);
+  //подменяем значение в массиве на объект с данными о продукте
+  return $result;
+}, $category->products);
 
 header('Content-Type: application/json');
-echo json_encode($categories[0]);
+echo json_encode($category);

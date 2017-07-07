@@ -2,6 +2,17 @@
 
 $data = Request::dataFromPost();
 
+$countProduct = $app['database']->count('shop_product', [
+  'id' => $data->id
+]);
+
+if ($countProduct==0) {
+  header("HTTP/1.1 404 Error");
+  header('Content-Type: application/json');
+  echo json_encode(['result' => 'Продукт не существует']);
+  return;
+}
+
 $products = $app['database']->update('shop_product', [
     'id' => $data->id,
     'is_enabled' => $data->is_enabled,
@@ -10,5 +21,6 @@ $products = $app['database']->update('shop_product', [
     'description' => $data->description
 ]);
 
-echo 'Продукт успешно сохранен';
+header('Content-Type: application/json');
+echo json_encode(['result' => 'Продукт успешно сохранен']);
 return;

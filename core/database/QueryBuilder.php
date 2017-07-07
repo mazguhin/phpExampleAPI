@@ -20,9 +20,46 @@ class QueryBuilder
     // возвращает запись по id из указанной таблицы
     public function show($table, $id)
     {
-        $statement = $this->pdo->prepare("select * from {$table} where id = {$id}");
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_CLASS);
+        $statement = $this->pdo->prepare("select * from {$table} where id = ?");
+        $statement->execute([$id]);
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function count($table, $parameters)
+    {
+        $queryString = '';
+
+        // если переданы дополнительные параметры
+        if (count($parameters)>0) {
+
+            foreach ($parameters as $key => $value) {
+                $queryString .= "{$key} = :{$key}, ";
+            }
+
+            $queryString = rtrim($queryString,", ");
+
+            $sql = sprintf(
+                'select count(*) as count from %s where %s',
+                $table,
+                $queryString
+            );
+
+        } else {
+
+            $sql = sprintf(
+                'select count(*) as count from %s',
+                $table
+            );
+
+        }
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute($parameters);
+            return $statement->fetch(PDO::FETCH_OBJ)->count;
+        } catch (Exception $e) {
+            //
+        }
     }
 
     // возвращает записи удовлетворяющие заданному условию
