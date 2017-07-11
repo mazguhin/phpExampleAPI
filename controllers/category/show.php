@@ -27,5 +27,7 @@ $category->products = array_map (function ($value) use ($app) {
   return $result;
 }, $category->products);
 
+$category->status = 1;
+
 header('Content-Type: application/json');
 echo json_encode($category);

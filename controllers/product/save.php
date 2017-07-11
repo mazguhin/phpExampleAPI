@@ -7,7 +7,7 @@ $countProduct = $app['database']->count('shop_product', [
 ]);
 
 if ($countProduct==0) {
-  header("HTTP/1.1 404 Error");
+//  header("HTTP/1.1 404 Error");
   header('Content-Type: application/json');
   echo json_encode(['result' => 'Продукт не существует']);
   return;
@@ -22,5 +22,5 @@ $products = $app['database']->update('shop_product', [
 ]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Продукт успешно сохранен']);
+echo json_encode(['result' => 'Продукт успешно сохранен', 'status' => '1']);
 return;

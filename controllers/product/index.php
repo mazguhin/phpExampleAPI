@@ -1,9 +1,9 @@
 <?php
 
-$products = $app['database']->all('shop_product');
+$products['result'] = $app['database']->all('shop_product');
 
 // перебираем все продукты
-foreach ($products as $product)
+foreach ($products['result'] as $product)
 {
     // для каждого продукта записываем список категорий
     $categories = $app['database']->where('shop_product_category', [
@@ -16,6 +16,8 @@ foreach ($products as $product)
       array_push($product->categories, $category->category_id);
     }
 }
+
+$products['status'] = 1;
 
 header('Content-Type: application/json');
 echo json_encode($products);

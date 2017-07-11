@@ -17,5 +17,5 @@ foreach($data->categories as $category) {
 }
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Продукт успешно добавлен']);
+echo json_encode(['result' => 'Продукт успешно добавлен', 'status' => '1']);
 return;

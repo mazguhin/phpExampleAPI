@@ -1,9 +1,9 @@
 <?php
 
-$categories = $app['database']->all('shop_category');
+$categories['result'] = $app['database']->all('shop_category');
 
 // перебираем все категории
-foreach ($categories as $category)
+foreach ($categories['result'] as $category)
 {
   $category->products = [];
 
@@ -21,6 +21,8 @@ foreach ($categories as $category)
   $category->products_count = count($category->products);
 
 }
+
+$categories['status'] = 1;
 
 header('Content-Type: application/json');
 echo json_encode($categories);

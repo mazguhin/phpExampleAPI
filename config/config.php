@@ -4,7 +4,7 @@ return [
     'database' => [
         'connection' => 'mysql:host=127.0.0.1',
         'name' => 'zbrsk',
-        'username' => 'zbrsk',
+        'username' => 'root',
         'password' => '',
     ],
     'debug' => true

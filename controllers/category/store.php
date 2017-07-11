@@ -9,4 +9,4 @@ $categories = $app['database']->insert('shop_category', [
 ]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Категория успешно добавлена']);
+echo json_encode(['result' => 'Категория успешно добавлена', 'status' => '1']);

@@ -151,4 +151,29 @@ class QueryBuilder
             //
         }
     }
+
+    public function deleteWhere($table, $parameters)
+    {
+        $queryString = '';
+
+        foreach ($parameters as $key => $value) {
+            $queryString .= "{$key} = :{$key} AND ";
+        }
+
+        $queryString = rtrim($queryString," AND ");
+
+        $sql = sprintf(
+            'delete from %s where %s',
+            $table,
+            $queryString
+        );
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute($parameters);
+//            return $statement->fetchAll(PDO::FETCH_CLASS);
+        } catch (Exception $e) {
+            //
+        }
+    }
 }
