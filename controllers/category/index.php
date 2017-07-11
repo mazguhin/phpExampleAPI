@@ -22,7 +22,7 @@ foreach ($categories['result'] as $category)
 
 }
 
-$categories['status'] = 1;
+$categories['status'] = true;
 
 header('Content-Type: application/json');
 echo json_encode($categories);

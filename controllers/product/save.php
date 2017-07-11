@@ -22,5 +22,5 @@ $products = $app['database']->update('shop_product', [
 ]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Продукт успешно сохранен', 'status' => '1']);
+echo json_encode(['result' => 'Продукт успешно сохранен', 'status' => true]);
 return;

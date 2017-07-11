@@ -9,7 +9,7 @@ $countCategory = $app['database']->count('shop_category', [
 if ($countCategory==0) {
 //  header("HTTP/1.1 404 Error");
   header('Content-Type: application/json');
-  echo json_encode(['result' => 'Категория не существует', 'status' => '0']);
+  echo json_encode(['result' => 'Категория не существует', 'status' => false]);
   return;
 }
 
@@ -56,5 +56,5 @@ Helper::deleteCategory($category, $app);
 //]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Категория успешно удалена', 'status' => '1']);
+echo json_encode(['result' => 'Категория успешно удалена', 'status' => true]);
 return;

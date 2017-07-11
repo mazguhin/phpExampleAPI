@@ -9,7 +9,7 @@ $countCategory = $app['database']->count('shop_category', [
 if ($countCategory==0) {
 //  header("HTTP/1.1 404 Error");
   header('Content-Type: application/json');
-  echo json_encode(['result' => 'Категория не существует', 'status' => '0']);
+  echo json_encode(['result' => 'Категория не существует', 'status' => false]);
   return;
 }
 
@@ -21,4 +21,4 @@ $categories = $app['database']->update('shop_category', [
 ]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Категория успешно сохранена', 'status' => '1']);
+echo json_encode(['result' => 'Категория успешно сохранена', 'status' => false]);

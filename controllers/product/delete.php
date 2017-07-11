@@ -9,7 +9,7 @@ $countProduct = $app['database']->count('shop_product', [
 if ($countProduct==0) {
 //  header("HTTP/1.1 404 Error");
   header('Content-Type: application/json');
-  echo json_encode(['result' => 'Продукт не существует', 'status' => '0']);
+  echo json_encode(['result' => 'Продукт не существует', 'status' => false]);
   return;
 }
 
@@ -30,5 +30,5 @@ $app['database']->delete('shop_product', [
 ]);
 
 header('Content-Type: application/json');
-echo json_encode(['result' => 'Продукт успешно удален', 'status' => '1']);
+echo json_encode(['result' => 'Продукт успешно удален', 'status' => true]);
 return;

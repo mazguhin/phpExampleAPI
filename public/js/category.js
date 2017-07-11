@@ -18,7 +18,7 @@ new Vue({
     // получить все категории
     getCategories() {
       this.$http.get('/category').then(response => {
-        if (response.body.status == 1) {
+        if (response.body.status == true) {
             this.categories = response.body.result;
         } else {
             alert(response.body.result);
@@ -31,7 +31,7 @@ new Vue({
     showCategory(id) {
       this.$http.get('/category/show?id='+id)
       .then(response => {
-          if (response.body.status == 1) {
+          if (response.body.status == true) {
               msg = 'Список продуктов: \n';
               response.body.products.forEach(value => msg += value.name + '\n');
               alert(msg);
@@ -48,7 +48,7 @@ new Vue({
       if (this.category.name!='' && this.category.is_enabled!='' && this.category.parent!='') {
         this.$http.post('/category', {name: this.category.name, is_enabled: this.category.is_enabled, parent: this.category.parent})
         .then(response => {
-            if (response.body.status == 1) {
+            if (response.body.status == true) {
                 this.getCategories();
             } else {
                 alert(response.body.result);
@@ -73,7 +73,7 @@ new Vue({
       if (this.checkCategory.id!='' && this.checkCategory.name!='' && this.checkCategory.is_enabled!='' && this.checkCategory.parent!='') {
         this.$http.put("/category", {id: this.checkCategory.id, name: this.checkCategory.name, is_enabled: this.checkCategory.is_enabled, parent: this.checkCategory.parent})
         .then(response => {
-            if (response.body.status == 1) {
+            if (response.body.status == true) {
                 this.checkCategory.id = '';
                 this.checkCategory.name = '';
                 this.checkCategory.is_enabled = '';
@@ -94,7 +94,7 @@ new Vue({
     deleteCategory(id) {
       this.$http.delete("/category?id="+id)
       .then(response => {
-          if (response.body.status == 1) {
+          if (response.body.status == true) {
               this.checkCategory.id = '';
               this.checkCategory.name = '';
               this.checkCategory.is_enabled = '';

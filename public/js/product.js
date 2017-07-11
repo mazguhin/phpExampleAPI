@@ -23,7 +23,7 @@ new Vue({
     // получить все категории
     getCategories() {
       this.$http.get('/category').then(response => {
-          if (response.body.status == 1) {
+          if (response.body.status == true) {
               this.categories = response.body.result;
           } else {
               alert(response.body.result);
@@ -35,7 +35,7 @@ new Vue({
     // получить все продукты
     getProducts() {
       this.$http.get('/product').then(response => {
-          if (response.body.status == 1) {
+          if (response.body.status == true) {
               this.products = response.body.result;
           } else {
               alert(response.body.result);
@@ -49,7 +49,7 @@ new Vue({
       if (this.product.name!='' && this.product.is_enabled!='') {
         this.$http.post('/product', {name: this.product.name, is_enabled: this.product.is_enabled, announce: this.product.announce, description: this.product.description, categories: this.product.categories})
         .then(response => {
-            if (response.body.status == 1) {
+            if (response.body.status == true) {
                 this.getProducts();
             } else {
                 alert(response.body.result);
@@ -80,7 +80,7 @@ new Vue({
       if (this.checkProduct.id!='' && this.checkProduct.name!='' && this.checkProduct.is_enabled!='') {
         this.$http.put("/product", {id: this.checkProduct.id, name: this.checkProduct.name, is_enabled: this.checkProduct.is_enabled, announce: this.checkProduct.announce, description: this.checkProduct.description})
         .then(response => {
-            if (response.body.status == 1) {
+            if (response.body.status == true) {
                 // ставим новые категории
                 categories: this.checkProduct.categories
                 this.$http.put("/product/categories", {
@@ -88,7 +88,7 @@ new Vue({
                     categories: this.checkProduct.categories
                 })
                     .then(response => {
-                        if (response.body.status == 1) {
+                        if (response.body.status == true) {
                             this.checkProduct.id = '';
                             this.checkProduct.name = '';
                             this.checkProduct.is_enabled = '';
@@ -118,7 +118,7 @@ new Vue({
     deleteProduct(id) {
       this.$http.delete("/product?id="+id)
       .then(response => {
-          if (response.body.status == 1) {
+          if (response.body.status == true) {
               this.checkProduct.id = '';
               this.checkProduct.name = '';
               this.checkProduct.is_enabled = '';
